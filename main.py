@@ -3,13 +3,19 @@ import re
 import sqlite3
 import hashlib
 import secrets
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
 from db import get_connection, create_table
 
+
+# ---------------- APP SETUP ----------------
+
+BASE_DIR = Path(__file__).resolve().parent
 
 app = FastAPI(title="One Click Internship API")
 
@@ -90,7 +96,7 @@ def get_skill_set(skills):
     if not skills:
         return set()
 
-    parts = re.split(r"[,;\n|]+", skills)
+    parts = re.split(r"[,;|\n]+", skills)
 
     return {
         normalize_skill(skill)
@@ -109,7 +115,6 @@ def find_matching_skills(student_skills, internship_skills):
 # ---------------- NOTIFICATION SYSTEM ----------------
 
 def create_student_notifications(connection, email, student_skills):
-
     internships = connection.execute(
         "SELECT * FROM internships"
     ).fetchall()
@@ -117,14 +122,12 @@ def create_student_notifications(connection, email, student_skills):
     notification_count = 0
 
     for internship in internships:
-
         matched = find_matching_skills(
             student_skills,
             internship["skills"]
         )
 
         if matched:
-
             message = (
                 f"New internship: {internship['title']} at "
                 f"{internship['company']}. "
@@ -146,7 +149,6 @@ def create_student_notifications(connection, email, student_skills):
 
 
 def create_internship_notifications(connection, internship):
-
     students = connection.execute(
         "SELECT email, skills FROM students"
     ).fetchall()
@@ -154,14 +156,12 @@ def create_internship_notifications(connection, internship):
     notification_count = 0
 
     for student in students:
-
         matched = find_matching_skills(
             student["skills"],
             internship["skills"]
         )
 
         if matched:
-
             message = (
                 f"New internship: {internship['title']} at "
                 f"{internship['company']}. "
@@ -182,14 +182,68 @@ def create_internship_notifications(connection, internship):
     return notification_count
 
 
-# ---------------- HOME ----------------
+# ---------------- FRONTEND PAGES ----------------
 
-@app.get("/")
-def home():
-    return {
-        "message": "One Click Internship Backend is Running!"
-    }
+def frontend_file(filename):
+    file_path = BASE_DIR / filename
 
+    if not file_path.is_file():
+        raise HTTPException(
+            status_code=404,
+            detail=f"{filename} not found"
+        )
+
+    return FileResponse(file_path)
+
+
+@app.get("/", include_in_schema=False)
+def home_page():
+    return frontend_file("index.html")
+
+
+@app.get("/login.html", include_in_schema=False)
+def login_page():
+    return frontend_file("login.html")
+
+
+@app.get("/register.html", include_in_schema=False)
+def register_page():
+    return frontend_file("register.html")
+
+
+@app.get("/dashboard.html", include_in_schema=False)
+def dashboard_page():
+    return frontend_file("dashboard.html")
+
+
+@app.get("/notification.html", include_in_schema=False)
+def notification_page():
+    return frontend_file("notification.html")
+
+
+# ---------------- FRONTEND CSS AND JS ----------------
+
+@app.get("/style.css", include_in_schema=False)
+def style_file():
+    return frontend_file("style.css")
+
+
+@app.get("/script.js", include_in_schema=False)
+def script_file():
+    return frontend_file("script.js")
+
+
+@app.get("/login.js", include_in_schema=False)
+def login_js_file():
+    return frontend_file("login.js")
+
+
+@app.get("/register.js", include_in_schema=False)
+def register_js_file():
+    return frontend_file("register.js")
+
+
+# ---------------- HEALTH ----------------
 
 @app.get("/health")
 def health():
@@ -219,7 +273,6 @@ def register_student(student: StudentRegistration):
     connection = get_connection()
 
     try:
-
         connection.execute(
             """
             INSERT INTO students
@@ -239,7 +292,6 @@ def register_student(student: StudentRegistration):
             )
         )
 
-        # Find existing internships matching the new student
         notification_count = create_student_notifications(
             connection,
             student.email,
@@ -272,7 +324,6 @@ def login_student(student: StudentLogin):
     connection = get_connection()
 
     try:
-
         user = connection.execute(
             "SELECT * FROM students WHERE email = ?",
             (student.email,)
@@ -319,7 +370,6 @@ def add_internship(internship: InternshipCreate):
     connection = get_connection()
 
     try:
-
         cursor = connection.execute(
             """
             INSERT INTO internships
@@ -342,7 +392,6 @@ def add_internship(internship: InternshipCreate):
             (internship_id,)
         ).fetchone()
 
-        # Automatically notify matching students
         notification_count = create_internship_notifications(
             connection,
             saved_internship
@@ -369,17 +418,14 @@ def get_internships(student_email: str = None):
     connection = get_connection()
 
     try:
-
         internships = connection.execute(
             "SELECT * FROM internships ORDER BY id DESC"
         ).fetchall()
 
         result = []
-
         student_skills = None
 
         if student_email:
-
             student = connection.execute(
                 "SELECT skills FROM students WHERE email = ?",
                 (student_email,)
@@ -394,17 +440,14 @@ def get_internships(student_email: str = None):
             student_skills = student["skills"]
 
         for internship in internships:
-
             matched = []
 
             if student_skills is not None:
-
                 matched = find_matching_skills(
                     student_skills,
                     internship["skills"]
                 )
 
-                # Only show matching internships to the student
                 if not matched:
                     continue
 
@@ -436,7 +479,6 @@ def get_student_notifications(email: str):
     connection = get_connection()
 
     try:
-
         student = connection.execute(
             "SELECT email FROM students WHERE email = ?",
             (email,)
@@ -486,7 +528,6 @@ def mark_notification_read(notification_id: int, email: str):
     connection = get_connection()
 
     try:
-
         cursor = connection.execute(
             """
             UPDATE notifications
