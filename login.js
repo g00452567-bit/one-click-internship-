@@ -27,9 +27,7 @@ if (loginForm) {
             const result = await response.json();
 
             if (response.ok) {
-                message.textContent =
-                    "Login successful! Welcome, " + result.name;
-
+                message.textContent = "Login successful! Welcome, " + result.name;
                 message.style.color = "green";
 
                 localStorage.setItem("studentName", result.name);
@@ -40,18 +38,13 @@ if (loginForm) {
                 }, 1000);
 
             } else {
-                message.textContent =
-                    result.detail || "Login failed!";
-
+                message.textContent = result.detail || "Login failed!";
                 message.style.color = "red";
             }
 
         } catch (error) {
             console.error("Login error:", error);
-
-            message.textContent =
-                "Backend connection failed! Please try again.";
-
+            message.textContent = "Backend connection failed! Please try again.";
             message.style.color = "red";
         }
     });
