@@ -1,0 +1,545 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard | One Click Internship</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f3ff;
+            color: #29213d;
+        }
+
+        header {
+            background: #5b21b6;
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        header h2 {
+            font-size: 23px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .notification-link {
+            background: white;
+            color: #5b21b6 !important;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        .welcome-card {
+            background: linear-gradient(135deg, #5b21b6, #9333ea);
+            color: white;
+            padding: 35px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+        }
+
+        .welcome-card h1 {
+            margin-bottom: 12px;
+        }
+
+        .welcome-card p {
+            line-height: 1.6;
+        }
+
+        .section-title {
+            color: #4c1d95;
+            margin: 30px 0 18px;
+        }
+
+        #internshipStatus {
+            color: #666;
+            margin-bottom: 18px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(230px, 1fr)
+            );
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 23px;
+            border-radius: 13px;
+            box-shadow: 0 4px 15px #0000000c;
+        }
+
+        .card h3 {
+            color: #5b21b6;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .status {
+            display: inline-block;
+            background: #ede9fe;
+            color: #5b21b6;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .apply-button,
+        .view-notifications,
+        .login-button {
+            display: inline-block;
+            margin-top: 18px;
+            background: #6d28d9;
+            color: white;
+            text-decoration: none;
+            padding: 11px 17px;
+            border-radius: 8px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .apply-button:hover,
+        .view-notifications:hover,
+        .login-button:hover {
+            background: #4c1d95;
+        }
+
+        .notification-box {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px #0000000c;
+        }
+
+        .notification-box h3 {
+            color: #5b21b6;
+            margin: 12px 0;
+        }
+
+        .notification-box p {
+            margin: 12px 0;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .empty-message {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #777;
+            margin-top: 30px;
+        }
+
+        @media(max-width: 600px) {
+            header {
+                padding: 18px;
+            }
+
+            nav {
+                gap: 13px;
+            }
+
+            .welcome-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+
+        <h2>One Click Internship</h2>
+
+        <nav>
+            <a href="index.html">Home</a>
+
+            <a href="index.html#about">About</a>
+
+            <a href="#internships">Internships</a>
+
+            <a href="notification.html"
+               class="notification-link">
+                🔔 Notifications
+            </a>
+        </nav>
+
+    </header>
+
+
+    <main>
+
+        <!-- WELCOME SECTION -->
+        <section class="welcome-card">
+
+            <h1 id="welcomeMessage">
+                Welcome, Student! 👋
+            </h1>
+
+            <p>
+                Your internship journey starts here.
+                Find opportunities, explore internships
+                and build your career.
+            </p>
+
+        </section>
+
+
+        <!-- INTERNSHIP SECTION -->
+        <h2 class="section-title" id="internships">
+            Internship Opportunities
+        </h2>
+
+        <p id="internshipStatus">
+            Loading your matching internships...
+        </p>
+
+        <div class="cards" id="internshipCards">
+        </div>
+
+
+        <!-- NOTIFICATIONS SECTION -->
+        <h2 class="section-title">
+            🔔 Recent Notifications
+        </h2>
+
+        <div class="notification-box">
+
+            <h3>🎉 Welcome!</h3>
+
+            <p>
+                Your account is ready.
+                Explore internship opportunities
+                matching your skills.
+            </p>
+
+            <h3>📢 Stay Updated!</h3>
+
+            <p>
+                Check your notifications page
+                for new matching internship alerts.
+            </p>
+
+            <a
+                href="notification.html"
+                class="view-notifications">
+
+                View All Notifications →
+
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+        © 2026 One Click Internship. All Rights Reserved.
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        const API_URL = "http://127.0.0.1:8000";
+
+        const studentEmail =
+            localStorage.getItem("studentEmail");
+
+        const studentName =
+            localStorage.getItem("studentName");
+
+
+        // DISPLAY STUDENT NAME
+
+        if (studentName) {
+
+            document.getElementById(
+                "welcomeMessage"
+            ).textContent =
+                "Welcome, " + studentName + "! 👋";
+
+        }
+
+
+        // LOAD MATCHING INTERNSHIPS
+
+        async function loadMatchingInternships() {
+
+            const container =
+                document.getElementById("internshipCards");
+
+            const status =
+                document.getElementById("internshipStatus");
+
+
+            if (!studentEmail) {
+
+                status.textContent =
+                    "Please login to view matching internships.";
+
+                container.innerHTML = `
+                    <div class="empty-message">
+                        <p>You need to login first.</p>
+
+                        <a href="login.html" class="login-button">
+                            Student Login →
+                        </a>
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            status.textContent =
+                "Loading your matching internships...";
+
+
+            try {
+
+                const response = await fetch(
+                    API_URL +
+                    "/internships?student_email=" +
+                    encodeURIComponent(studentEmail)
+                );
+
+
+                const data = await response.json();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.detail ||
+                        "Unable to load internships"
+                    );
+
+                }
+
+
+                container.innerHTML = "";
+
+
+                if (
+                    !data.internships ||
+                    data.internships.length === 0
+                ) {
+
+                    status.textContent =
+                        "No matching internships found yet.";
+
+                    container.innerHTML = `
+                        <div class="empty-message">
+                            <h3>No Matching Internships Yet 🔍</h3>
+
+                            <p>
+                                We will show internship opportunities
+                                when your skills match.
+                            </p>
+
+                            <p>
+                                Keep checking for new opportunities!
+                            </p>
+                        </div>
+                    `;
+
+                    return;
+                }
+
+
+                status.textContent =
+                    data.count +
+                    " matching internship(s) found!";
+
+
+                // CREATE INTERNSHIP CARDS
+
+                data.internships.forEach(item => {
+
+                    const card =
+                        document.createElement("div");
+
+                    card.className = "card";
+
+
+                    const title =
+                        document.createElement("h3");
+
+                    title.textContent =
+                        "💼 " + item.title;
+
+
+                    const company =
+                        document.createElement("p");
+
+                    company.textContent =
+                        "Company: " + item.company;
+
+
+                    const description =
+                        document.createElement("p");
+
+                    description.textContent =
+                        item.description || "";
+
+
+                    const skills =
+                        document.createElement("p");
+
+                    skills.textContent =
+                        "Matching Skills: " +
+                        (item.matched_skills || []).join(", ");
+
+
+                    const badge =
+                        document.createElement("span");
+
+                    badge.className = "status";
+
+                    badge.textContent =
+                        "Skills Matched ✓";
+
+
+                    const apply =
+                        document.createElement("a");
+
+                    apply.className = "apply-button";
+
+                    apply.textContent =
+                        "Apply Now →";
+
+
+                    // CHECK APPLICATION LINK
+
+                    try {
+
+                        const url =
+                            new URL(item.apply_url);
+
+                        if (
+                            url.protocol !== "https:" &&
+                            url.protocol !== "http:"
+                        ) {
+
+                            throw new Error(
+                                "Invalid application URL"
+                            );
+
+                        }
+
+                        apply.href = url.href;
+
+                        apply.target = "_blank";
+
+                        apply.rel =
+                            "noopener noreferrer";
+
+                    } catch (error) {
+
+                        apply.textContent =
+                            "Application link unavailable";
+
+                    }
+
+
+                    // ADD ELEMENTS TO CARD
+
+                    card.append(
+                        title,
+                        company,
+                        description,
+                        skills,
+                        badge,
+                        apply
+                    );
+
+
+                    container.appendChild(card);
+
+                });
+
+
+            } catch (error) {
+
+                status.textContent =
+                    "Backend connection failed. Check your server.";
+
+                console.error(
+                    "Internship loading error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        // START LOADING
+
+        loadMatchingInternships();
+
+
+    </script>
+
+</body>
+
+</html>

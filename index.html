@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Click Internship</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <a href="#home" class="logo">One Click Internship</a>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#internships">Internships</a>
+        <a href="#contact">Contact</a>
+        <a href="register.html" class="register-link">Register</a>
+    </nav>
+</header>
+
+<main>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+
+            <span class="tag">YOUR INTERNSHIP JOURNEY STARTS HERE</span>
+
+            <h1>
+                Find Your Internship
+                <span>In One Click.</span>
+            </h1>
+
+            <p>
+                Discover internship opportunities from multiple
+                companies and portals in one place.
+                Start learning, growing and building your career.
+            </p>
+
+            <button onclick="exploreInternships()">
+                Explore Opportunities →
+            </button>
+
+        </div>
+    </section>
+
+    <!-- SEARCH -->
+    <section class="search-section" id="internships">
+
+        <h2>Explore Internship Opportunities</h2>
+
+        <p>Find your next career opportunity in one place.</p>
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search internship or company..."
+            >
+            <button onclick="searchInternships()">Search</button>
+        </div>
+
+        <p id="searchResult"></p>
+
+    </section>
+
+    <!-- INTERNSHIP LISTINGS -->
+    <section class="internship-section">
+
+        <h2>Latest Internship Opportunities</h2>
+
+        <p class="section-desc">
+            Discover opportunities from different platforms.
+        </p>
+
+        <div class="internship-container">
+
+            <div class="internship-card">
+                <span class="source">Internshala</span>
+                <h3>Python Developer Intern</h3>
+                <p>ABC Technologies</p>
+                <p>Remote | ₹8,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">LinkedIn</span>
+                <h3>Java Developer Intern</h3>
+                <p>XYZ Solutions</p>
+                <p>Chennai | ₹10,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">Naukri</span>
+                <h3>Web Development Intern</h3>
+                <p>Tech Solutions</p>
+                <p>Remote | ₹7,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">Indeed</span>
+                <h3>Frontend Developer Intern</h3>
+                <p>Creative Tech</p>
+                <p>Bangalore | ₹9,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">Company Portal</span>
+                <h3>Backend Developer Intern</h3>
+                <p>Digital Solutions</p>
+                <p>Remote | ₹10,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">LinkedIn</span>
+                <h3>Full Stack Developer Intern</h3>
+                <p>Future Tech</p>
+                <p>Chennai | ₹12,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">Internshala</span>
+                <h3>Software Developer Intern</h3>
+                <p>Code World</p>
+                <p>Remote | ₹8,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">Indeed</span>
+                <h3>Data Science Intern</h3>
+                <p>Data Solutions</p>
+                <p>Remote | ₹12,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">Naukri</span>
+                <h3>Artificial Intelligence Intern</h3>
+                <p>AI Technologies</p>
+                <p>Bangalore | ₹15,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">Company Portal</span>
+                <h3>Machine Learning Intern</h3>
+                <p>Smart Systems</p>
+                <p>Remote | ₹12,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">Internshala</span>
+                <h3>UI/UX Design Intern</h3>
+                <p>Design Studio</p>
+                <p>Remote | ₹8,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">LinkedIn</span>
+                <h3>Graphic Design Intern</h3>
+                <p>Creative Studio</p>
+                <p>Chennai | ₹7,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">Naukri</span>
+                <h3>Cybersecurity Intern</h3>
+                <p>Secure Tech</p>
+                <p>Remote | ₹10,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">Indeed</span>
+                <h3>Cloud Computing Intern</h3>
+                <p>Cloud Systems</p>
+                <p>Remote | ₹11,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">Company Portal</span>
+                <h3>Android Developer Intern</h3>
+                <p>Mobile Tech</p>
+                <p>Bangalore | ₹9,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">Internshala</span>
+                <h3>Digital Marketing Intern</h3>
+                <p>Marketing World</p>
+                <p>Remote | ₹6,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">LinkedIn</span>
+                <h3>Content Writing Intern</h3>
+                <p>Media House</p>
+                <p>Remote | ₹5,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">Naukri</span>
+                <h3>Business Analyst Intern</h3>
+                <p>Business Solutions</p>
+                <p>Chennai | ₹8,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">Indeed</span>
+                <h3>HR Intern</h3>
+                <p>People First</p>
+                <p>Chennai | ₹6,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+            <div class="internship-card">
+                <span class="source">Company Portal</span>
+                <h3>Database Administrator Intern</h3>
+                <p>Database Tech</p>
+                <p>Remote | ₹9,000/month</p>
+                <button onclick="applyInternship()">Apply Now</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about-section" id="about">
+
+        <span class="tag">ABOUT OUR PLATFORM</span>
+
+        <h2>Everything in One Place</h2>
+
+        <p>
+            One Click Internship brings internship opportunities
+            from different platforms into one central destination.
+            Students can discover opportunities and visit the
+            original application page easily.
+        </p>
+
+        <div class="about-features">
+
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>Multiple Platforms</h3>
+                <p>Discover listings from different internship portals.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔔</div>
+                <h3>Quick Alerts</h3>
+                <p>Stay informed about newly published opportunities.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>Easy Discovery</h3>
+                <p>Explore opportunities from one central platform.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-section" id="contact">
+
+        <span class="tag">GET IN TOUCH</span>
+
+        <h2>Contact Us</h2>
+
+        <p>
+            Have questions about internship opportunities?
+            We would love to hear from you.
+        </p>
+
+        <a href="mailto:contact@oneclickinternship.com">
+            Email Us
+        </a>
+
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <h3>One Click Internship</h3>
+    <p>Discover. Learn. Grow. Build Your Career.</p>
+    <p>© 2026 One Click Internship. All rights reserved.</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

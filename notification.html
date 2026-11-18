@@ -1,0 +1,452 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications | One Click Internship</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f3ff;
+            color: #29213d;
+        }
+
+        header {
+            background: #5b21b6;
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        .welcome, .notification, .empty {
+            background: white;
+            padding: 22px;
+            border-radius: 13px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 15px #0000000c;
+        }
+
+        .welcome {
+            background: linear-gradient(135deg, #5b21b6, #9333ea);
+            color: white;
+        }
+
+        .welcome h2 {
+            color: white;
+        }
+
+        h2 {
+            margin-bottom: 18px;
+            color: #4c1d95;
+        }
+
+        .notification {
+            border-left: 5px solid #7c3aed;
+        }
+
+        .notification h3 {
+            color: #5b21b6;
+            margin-bottom: 10px;
+        }
+
+        .notification p {
+            color: #555;
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
+        .meta {
+            font-size: 13px;
+            color: #888 !important;
+        }
+
+        .unread {
+            display: inline-block;
+            background: #ede9fe;
+            color: #5b21b6;
+            padding: 5px 9px;
+            border-radius: 6px;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        button, .apply {
+            display: inline-block;
+            border: none;
+            background: #6d28d9;
+            color: white;
+            padding: 11px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            margin: 12px 8px 0 0;
+            font-size: 14px;
+        }
+
+        button:hover, .apply:hover {
+            background: #4c1d95;
+        }
+
+        .sound-button {
+            background: #25213d;
+        }
+
+        #status {
+            margin: 15px 0;
+            color: #666;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2 style="color:white;">One Click Internship 🔔</h2>
+    <a href="dashboard.html">← Dashboard</a>
+</header>
+
+<main>
+
+    <div class="welcome">
+        <h2 id="welcomeName">Welcome, Student! 👋</h2>
+        <p>Your personalized internship alerts appear here.</p>
+    </div>
+
+    <h2>🔔 Your Notifications</h2>
+
+    <p id="status">Loading notifications...</p>
+
+    <button class="sound-button" onclick="enableSound()"
+            id="soundButton">
+        🔊 Enable Notification Sound
+    </button>
+
+    <button onclick="loadNotifications()">
+        ↻ Refresh
+    </button>
+
+    <div id="notificationList"></div>
+
+</main>
+
+<footer>
+    © 2026 One Click Internship. All Rights Reserved.
+</footer>
+
+<script>
+
+const API = "http://127.0.0.1:8000";
+
+const studentEmail = localStorage.getItem("studentEmail");
+const studentName = localStorage.getItem("studentName");
+
+const notificationList =
+    document.getElementById("notificationList");
+
+const statusText = document.getElementById("status");
+
+let knownIds = new Set();
+let firstLoad = true;
+let soundEnabled = false;
+let audioContext = null;
+let isLoading = false;
+
+if (studentName) {
+    document.getElementById("welcomeName").textContent =
+        "Welcome, " + studentName + "! 👋";
+}
+
+if (!studentEmail) {
+
+    statusText.textContent =
+        "Please login first to view your notifications.";
+
+    notificationList.innerHTML =
+        '<a class="apply" href="login.html">Go to Login →</a>';
+
+} else {
+
+    loadNotifications();
+
+    setInterval(loadNotifications, 15000);
+}
+
+
+// ENABLE SOUND
+async function enableSound() {
+
+    try {
+        const AudioContextClass =
+            window.AudioContext || window.webkitAudioContext;
+
+        if (!AudioContextClass) {
+            alert("Audio is not supported in this browser.");
+            return;
+        }
+
+        if (!audioContext) {
+            audioContext = new AudioContextClass();
+        }
+
+        if (audioContext.state === "suspended") {
+            await audioContext.resume();
+        }
+
+        soundEnabled = true;
+
+        document.getElementById("soundButton").textContent =
+            "🔔 Notification Sound Enabled";
+
+        playSound();
+
+    } catch (error) {
+        alert("Unable to enable sound.");
+    }
+}
+
+
+// NOTIFICATION SOUND
+function playSound() {
+
+    if (!soundEnabled || !audioContext) return;
+
+    const notes = [
+        { frequency: 880, time: 0 },
+        { frequency: 1174, time: 0.18 },
+        { frequency: 1568, time: 0.38 }
+    ];
+
+    notes.forEach(note => {
+
+        const oscillator = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+
+        oscillator.type = "sine";
+        oscillator.frequency.value = note.frequency;
+
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
+
+        const start = audioContext.currentTime + note.time;
+
+        gain.gain.setValueAtTime(0.7, start);
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.01,
+            start + 0.65
+        );
+
+        oscillator.start(start);
+        oscillator.stop(start + 0.65);
+    });
+}
+
+
+// LOAD NOTIFICATIONS
+async function loadNotifications() {
+
+    if (!studentEmail || isLoading) return;
+
+    isLoading = true;
+
+    try {
+
+        const response = await fetch(
+            API + "/students/" +
+            encodeURIComponent(studentEmail) +
+            "/notifications"
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.detail || "Unable to load notifications"
+            );
+        }
+
+        const notifications = data.notifications || [];
+
+        const newNotifications = notifications.filter(
+            item => !knownIds.has(item.id)
+        );
+
+        if (!firstLoad && newNotifications.length > 0) {
+            playSound();
+        }
+
+        notifications.forEach(item => knownIds.add(item.id));
+
+        firstLoad = false;
+
+        statusText.textContent =
+            notifications.length + " notification(s) found.";
+
+        displayNotifications(notifications);
+
+    } catch (error) {
+
+        statusText.textContent =
+            "Could not connect to backend. Check the server.";
+
+        console.error(error);
+
+    } finally {
+        isLoading = false;
+    }
+}
+
+
+// DISPLAY NOTIFICATIONS
+function displayNotifications(notifications) {
+
+    notificationList.innerHTML = "";
+
+    if (notifications.length === 0) {
+
+        notificationList.innerHTML = `
+            <div class="empty">
+                <h3>No Notifications Yet 🔔</h3>
+                <p>Matching internship alerts will appear here.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+    notifications.forEach(item => {
+
+        const card = document.createElement("div");
+        card.className = "notification";
+
+        const safeURL = getSafeURL(item.apply_url);
+
+        card.innerHTML = `
+            <h3>🎉 ${escapeHTML(item.title)}</h3>
+
+            <p><strong>Company:</strong>
+                ${escapeHTML(item.company)}</p>
+
+            <p>${escapeHTML(item.message)}</p>
+
+            <p><strong>Required Skills:</strong>
+                ${escapeHTML(item.skills)}</p>
+
+            <p class="meta">Received:
+                ${escapeHTML(item.created_at)}</p>
+
+            <span class="unread">
+                ${item.is_read ? "Read" : "New / Unread"}
+            </span>
+
+            <br>
+
+            ${safeURL ? `
+                <a class="apply"
+                   href="${safeURL}"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                   Apply Now →
+                </a>
+            ` : ""}
+
+            ${item.is_read ? "" : `
+                <button onclick="markAsRead(${Number(item.id)})">
+                    Mark as Read
+                </button>
+            `}
+        `;
+
+        notificationList.appendChild(card);
+    });
+}
+
+
+// MARK AS READ
+async function markAsRead(id) {
+
+    try {
+
+        const response = await fetch(
+            API + "/notifications/" + id +
+            "/read?email=" + encodeURIComponent(studentEmail),
+            {
+                method: "PATCH"
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Could not update notification.");
+        }
+
+        await loadNotifications();
+
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+
+// SAFE HTML TEXT
+function escapeHTML(value) {
+
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+}
+
+
+// VALIDATE APPLICATION URL
+function getSafeURL(value) {
+
+    try {
+        const url = new URL(value);
+
+        if (url.protocol === "https:" ||
+            url.protocol === "http:") {
+            return escapeHTML(url.href);
+        }
+
+    } catch (error) {
+        return "";
+    }
+
+    return "";
+}
+
+</script>
+
+</body>
+</html>

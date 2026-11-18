@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration - One Click Internship</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo">One Click Internship</a>
+</header>
+
+<section class="registration-section">
+
+    <div class="registration-box">
+
+        <a href="index.html" class="back-link">← Back to Home</a>
+
+        <h1>Student Registration</h1>
+
+        <p class="form-description">
+            Create your account and start your internship journey.
+        </p>
+
+        <form id="registrationForm">
+
+            <label>Full Name</label>
+            <input type="text" id="fullName"
+                   placeholder="Enter your full name" required>
+
+            <label>Email Address</label>
+            <input type="email" id="email"
+                   placeholder="Enter your email" required>
+
+            <label>Mobile Number</label>
+            <input type="tel" id="phone"
+                   placeholder="Enter 10 digit mobile number"
+                   pattern="[0-9]{10}" maxlength="10" required>
+
+            <label>College Name</label>
+            <input type="text" id="college"
+                   placeholder="Enter your college name" required>
+
+            <label>Degree / Course</label>
+            <input type="text" id="course"
+                   placeholder="Example: BSc Computer Science" required>
+
+            <label>Current Year</label>
+            <select id="year" required>
+                <option value="">Select your year</option>
+                <option value="First Year">First Year</option>
+                <option value="Second Year">Second Year</option>
+                <option value="Third Year">Third Year</option>
+                <option value="Final Year">Final Year</option>
+            </select>
+
+            <label>Skills</label>
+            <input type="text" id="skills"
+                   placeholder="Example: HTML, CSS, Python" required>
+
+            <label>Password</label>
+            <input type="password" id="password"
+                   placeholder="Create password"
+                   minlength="8" required>
+
+            <label>Confirm Password</label>
+            <input type="password" id="confirmPassword"
+                   placeholder="Confirm password" required>
+
+            <button type="submit" class="submit-button">
+                Create Account
+            </button>
+
+            <p id="registrationMessage"></p>
+
+        </form>
+
+    </div>
+
+</section>
+
+<footer>
+    <p>© 2026 One Click Internship. All rights reserved.</p>
+</footer>
+
+<script src="register.js"></script>
+
+</body>
+</html>

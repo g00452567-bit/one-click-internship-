@@ -1,0 +1,479 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f8f7ff;
+    color: #211b3c;
+}
+
+/* HEADER */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 6%;
+    background: white;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    text-decoration: none;
+    color: #5421b8;
+    font-size: 23px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #31205e;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #8b5cf6;
+}
+
+.register-link {
+    background: #6d28d9;
+    color: white !important;
+    padding: 13px 23px;
+    border-radius: 8px;
+}
+
+.register-link:hover {
+    background: #4c1d95;
+}
+
+/* BUTTONS */
+
+button {
+    background: #6d28d9;
+    color: white;
+    border: none;
+    padding: 14px 25px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #4c1d95;
+    transform: translateY(-2px);
+}
+
+/* HERO */
+
+.hero {
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    padding: 80px 8%;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(20, 12, 65, 0.96),
+            rgba(35, 18, 90, 0.78),
+            rgba(35, 18, 90, 0.25)
+        ),
+        url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f");
+
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.hero-content {
+    max-width: 650px;
+}
+
+.tag {
+    display: inline-block;
+    color: #6d28d9;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    margin-bottom: 22px;
+}
+
+.hero .tag {
+    color: white;
+    background: rgba(124, 58, 237, 0.65);
+    padding: 10px 15px;
+    border-radius: 25px;
+}
+
+.hero h1 {
+    font-size: 52px;
+    line-height: 1.2;
+    margin-bottom: 22px;
+    color: white;
+}
+
+.hero h1 span {
+    display: block;
+    color: #c084fc;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #eee8ff;
+    max-width: 550px;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+/* SEARCH */
+
+.search-section {
+    text-align: center;
+    padding: 65px 20px;
+}
+
+.search-section h2,
+.internship-section h2 {
+    font-size: 29px;
+    margin-bottom: 15px;
+    color: #31205e;
+}
+
+.search-section p,
+.section-desc {
+    color: #777;
+    margin-bottom: 25px;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    max-width: 650px;
+    margin: auto;
+}
+
+.search-box input {
+    flex: 1;
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: #7c3aed;
+}
+
+#searchResult {
+    margin-top: 18px;
+}
+
+/* INTERNSHIP CARDS */
+
+.internship-section {
+    padding: 60px 8%;
+    text-align: center;
+}
+
+.internship-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 35px;
+    text-align: left;
+}
+
+.internship-card {
+    background: white;
+    padding: 27px;
+    border-radius: 14px;
+    border: 1px solid #eee;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.04);
+    transition: 0.3s;
+}
+
+.internship-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(109,40,217,0.12);
+}
+
+.internship-card h3 {
+    margin: 18px 0 12px;
+    color: #31205e;
+    font-size: 19px;
+}
+
+.internship-card p {
+    color: #666;
+    margin: 12px 0;
+    font-size: 14px;
+}
+
+.source {
+    display: inline-block;
+    background: #ede9fe;
+    color: #6d28d9;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.internship-card button {
+    margin-top: 12px;
+    width: 100%;
+}
+
+/* ABOUT */
+
+.about-section {
+    padding: 75px 8%;
+    text-align: center;
+    background: #f0eaff;
+}
+
+.about-section h2,
+.contact-section h2 {
+    color: #31205e;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.about-section > p,
+.contact-section > p {
+    max-width: 750px;
+    margin: auto;
+    color: #666;
+    line-height: 1.8;
+}
+
+.about-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 40px;
+}
+
+.feature-card {
+    background: white;
+    padding: 30px 22px;
+    border-radius: 14px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+
+.feature-card h3 {
+    color: #6d28d9;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* CONTACT */
+
+.contact-section {
+    padding: 75px 20px;
+    text-align: center;
+    background: white;
+}
+
+.contact-section a {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 14px 28px;
+    background: #6d28d9;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.contact-section a:hover {
+    background: #4c1d95;
+}
+
+/* REGISTRATION */
+
+.registration-section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 45px 20px;
+    background: linear-gradient(135deg, #ede9fe, #ffffff);
+}
+
+.registration-box {
+    width: 100%;
+    max-width: 550px;
+    background: white;
+    padding: 38px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+.back-link {
+    display: inline-block;
+    text-decoration: none;
+    color: #6d28d9;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.registration-box h1 {
+    color: #31205e;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.form-description {
+    color: #777;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.registration-box label {
+    display: block;
+    margin-top: 17px;
+    margin-bottom: 8px;
+    color: #31205e;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.registration-box input,
+.registration-box select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    background: white;
+}
+
+.registration-box input:focus,
+.registration-box select:focus {
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
+}
+
+.submit-button {
+    width: 100%;
+    margin-top: 28px;
+}
+
+#registrationMessage {
+    margin-top: 18px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 35px 20px;
+    background: #211b3c;
+    color: white;
+}
+
+footer h3 {
+    margin-bottom: 12px;
+}
+
+footer p {
+    margin: 8px 0;
+    color: #ddd;
+    font-size: 14px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+    .internship-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    header {
+        padding: 18px 4%;
+    }
+
+    nav {
+        gap: 15px;
+    }
+}
+
+@media (max-width: 700px) {
+    header {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .hero {
+        min-height: 470px;
+        padding: 60px 6%;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .internship-container,
+    .about-features {
+        grid-template-columns: 1fr;
+    }
+
+    .search-box {
+        flex-direction: column;
+    }
+
+    .registration-box {
+        padding: 25px 20px;
+    }
+}
