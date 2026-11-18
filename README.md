@@ -104,7 +104,7 @@ Internship opportunities are currently added through the backend API. Automatic 
 - Public website deployment
 
 ## Project Demo
-
+ 
 one_click_internship_demo.mp4 
 
 ## Developed As
